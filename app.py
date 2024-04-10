@@ -1,6 +1,9 @@
 from flask import Flask
 
+from users.views import users_bp
+
 app = Flask(__name__)
+app.register_blueprint(users_bp)
 
 
 @app.route('/')
