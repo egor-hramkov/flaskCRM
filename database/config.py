@@ -11,3 +11,5 @@ DB_CONFIG = {
     "SQL_HOST": os.environ.get("SQL_HOST"),
     "SQL_PORT": os.environ.get("SQL_PORT"),
 }
+DB_URI = (f"postgresql://{DB_CONFIG['SQL_USER']}:{DB_CONFIG['SQL_PASSWORD']}@{DB_CONFIG['SQL_HOST']}:"
+          f"{DB_CONFIG['SQL_PORT']}/{DB_CONFIG['SQL_DATABASE']}"),
