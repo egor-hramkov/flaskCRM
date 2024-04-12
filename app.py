@@ -1,12 +1,14 @@
 from flask import Flask
 
-from users.views import users_bp
 from flasgger import Swagger
 
 app = Flask(__name__)
+
+from users.views import users_bp
+
 app.register_blueprint(users_bp)
 
-Swagger(app)
+swagger = Swagger(app)
 
 
 @app.route('/')

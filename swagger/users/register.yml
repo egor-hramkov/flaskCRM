@@ -1,0 +1,46 @@
+Creates a new user
+---
+parameters:
+  - in: body
+    name: body
+    schema:
+      id: cam
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+        name:
+          type: string
+        surname:
+          type: string
+        photo:
+          type: string
+        about:
+          type: string
+        social_media:
+          type: object
+        address:
+          type: string
+        company:
+          type: string
+      example: {
+        "username": "test",
+        "password": "test",
+        "name": "test",
+        "surname": "test",
+        "photo": "HD USB CAMERA",
+        "about": "test description",
+        "social_media": "AS",
+        "address": "test",
+        "company": "test"
+      }
+responses:
+  200:
+    description: The created user
+    schema:
+      id: cam
+      name:
+        type: string
+      width:
+        type: integer

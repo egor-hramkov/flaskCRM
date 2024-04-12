@@ -1,17 +1,19 @@
 from flask_marshmallow.sqla import SQLAlchemySchema
+from marshmallow import fields
 
 from users.models import User
 
 
 class UserSchema(SQLAlchemySchema):
     """Общая схема пользователя"""
+    password = fields.Str(required=True, load_only=True)
 
     class Meta:
         model = User
-        exclude = ('password',)
+        #exclude = ('password',)
 
 
-class UsersSchemaIn(SQLAlchemySchema):
+class UserSchemaIn(SQLAlchemySchema):
     """Схема пользователя для сохранения/обновления данных"""
 
     class Meta:
