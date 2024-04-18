@@ -15,10 +15,10 @@ class UserService:
         user: UserSchema = self._repository.get(user_id)
         return user
 
-    def list(self, data: UserSchemaIn):
+    def list(self):
         """Создание пользователя"""
-        user: UserSchema = self._repository.create(data)
-        return user
+        users: list[UserSchema] = self._repository.list()
+        return users
 
     def update(self, data: UserSchemaIn):
         """Создание пользователя"""

@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 from users.views import users_bp
 
-app.register_blueprint(users_bp)
+app.register_blueprint(users_bp, url_prefix='/users')
 
 swagger = Swagger(app)
 

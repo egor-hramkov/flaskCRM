@@ -9,18 +9,17 @@ class UserRepository:
         """Создание пользователя"""
         user = User(**data.dict())
         user.create()
-        return UserSchema.dump(user)
+        return UserSchema.model_validate(user, from_attributes=True)
 
     def get(self, user_id: int) -> UserSchema:
         """Получение пользователя"""
-        user = User.query.get_or_404(user_id)
+        user = User.query.get_or_404(user_id, description="Пользователь не найден")
         return UserSchema.dump(user)
 
-    def list(self, data: UserSchemaIn) -> UserSchema:
+    def list(self) -> list[UserSchema]:
         """Создание пользователя"""
-        user = User(**data.dict())
-        user.create()
-        return UserSchema.dump(user)
+        user = User.query.all()
+        return UserSchema(many=True).dump(user)
 
     def update(self, data: UserSchemaIn) -> UserSchema:
         """Создание пользователя"""

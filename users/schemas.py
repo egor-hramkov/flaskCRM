@@ -1,20 +1,21 @@
-from flask_marshmallow.sqla import SQLAlchemySchema
-from marshmallow import fields
+from typing import Optional
 
-from users.models import User
+from pydantic import BaseModel
 
 
-class UserSchema(SQLAlchemySchema):
+class UserSchema(BaseModel):
     """Общая схема пользователя"""
-    password = fields.Str(required=True, load_only=True)
+    id: Optional[int] = None
+    username: str
+    name: str
+    surname: str
+    photo: Optional[str] = None
+    about: str
+    social_media: Optional[dict] = None
+    address: str
+    company: str
 
-    class Meta:
-        model = User
-        #exclude = ('password',)
 
-
-class UserSchemaIn(SQLAlchemySchema):
+class UserSchemaIn(UserSchema):
     """Схема пользователя для сохранения/обновления данных"""
-
-    class Meta:
-        model = User
+    password: str

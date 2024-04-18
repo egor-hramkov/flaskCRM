@@ -1,24 +1,21 @@
 from flasgger import swag_from
 from flask import Blueprint, request, jsonify
+from flask_pydantic import validate
 from marshmallow import ValidationError
 
-from swagger.users.register import REGISTER_SWAGGER
 from users.schemas import UserSchemaIn, UserSchema
 from users.services.user_service import UserService
 
-users_bp = Blueprint('users', __name__)
+users_bp = Blueprint('users', __name__, url_prefix='/users')
 user_service = UserService()
 
 
-@swag_from("../swagger/users/register.yml")
 @users_bp.route('/register', methods=['POST'])
-def register():
+@validate()
+@swag_from("../swagger/users/register.yml")
+def register(body: UserSchemaIn):
     """Регистрация пользователя"""
-    try:
-        data = UserSchemaIn.load(request.get_json())
-    except ValidationError as err:
-        return jsonify(err.messages), 400
-    user: UserSchema = user_service.create(data)
+    user: UserSchema = user_service.create(body)
     return jsonify(user)
 
 
@@ -29,9 +26,10 @@ def get(user_id: int):
 
 
 @users_bp.route('/list/', methods=['GET'])
-def list(user_id: int):
+def list():
     """Получение пользователей"""
-    pass
+    users = user_service.list()
+    return users
 
 
 @users_bp.route('/<int:user_id>', methods=['PUT'])
